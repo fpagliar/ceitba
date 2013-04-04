@@ -43,9 +43,8 @@ public class UnsubscribeCeitbaWindow extends JFrame implements ActionListener{
 			new ErrorWindow("Numero de Legajo invalido");
 			return;
 		}
-		String queryString = "DELETE FROM subscriptions WHERE user_id = ( SELECT user_id FROM users WHERE legacy = " + legacy + ") AND service_id = ( SELECT id FROM services WHERE name = 'ceitba');";
-		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
-		query.run();
-		
+		String[] queryStrings = new String[1];
+		queryStrings[0] = "DELETE FROM subscriptions WHERE user_id = ( SELECT user_id FROM users WHERE legacy = " + legacy + ") AND service_id = ( SELECT id FROM services WHERE name = 'ceitba');";
+		connection.executeInsertQuerys(queryStrings);
 	};
 }

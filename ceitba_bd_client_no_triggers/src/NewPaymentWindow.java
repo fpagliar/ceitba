@@ -57,9 +57,8 @@ public class NewPaymentWindow extends JFrame implements ActionListener{
 			new ErrorWindow("Legajo invalido");
 			return;
 		}
-		
-		String queryString = "INSERT INTO payments(id, ammount) values ( (SELECT id FROM users WHERE legacy = "+ legacy + "), " + ammount + ");";
-		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
-		query.run();		
+		String[] queryStrings = new String[1];
+		queryStrings[0] = "INSERT INTO payments(id, ammount) values ( (SELECT id FROM users WHERE legacy = "+ legacy + "), " + ammount + ");";
+		connection.executeInsertQuerys(queryStrings);
 	};
 }

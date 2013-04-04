@@ -51,8 +51,9 @@ public class SeeSubscriptionsWindow extends JFrame implements ActionListener{
 		String[] columnNames = {"id", "name", "legacy", "first_name", "last_name", "price"};
 		String queryString = "SELECT id, name, legacy, first_name, last_name, price FROM subscriptions_view WHERE legacy = " + legacy;
 		
-		SqlQuery query = new SqlSelectQuery(queryString, columnNames, connection);
-		TableData output = query.run();
+		Object[][] results = connection.executeSelectQuery(queryString, columnNames);
+
+		TableData output = new TableData(columnNames, results);
 		CeitbaWindow newContentPane = new CeitbaWindow(new TableData());
 		if (output != null){
 			newContentPane = new CeitbaWindow(output);

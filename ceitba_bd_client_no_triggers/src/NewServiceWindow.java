@@ -94,16 +94,13 @@ public class NewServiceWindow extends JFrame implements ActionListener{
 			description = "'" + description + "'";
 		}
 
-		String queryString1 = "INSERT INTO services(name, price) VALUES ('"+ name + "', "+  price + ");";
-		SqlQuery query1 = new SqlInsertQuery(queryString1, null, connection);
-		query1.run();
+		String[] queryStrings = new String[2];
+		queryStrings[0] = "INSERT INTO services(name, price) VALUES ('"+ name + "', "+  price + ");";
 
-		String queryString = "INSERT INTO other_services(id, name, description, duration) VALUES ((SELECT id FROM services WHERE name = '" + name + "'), '"+ name + "', " + description + ", " + duration + ");";
+		queryStrings[1] = "INSERT INTO other_services(id, name, description, duration) VALUES ((SELECT id FROM services WHERE name = '" + name + "'), '"+ name + "', " + description + ", " + duration + ");";
 		if (duration.length() == 0){
-			queryString = "INSERT INTO other_services(id, name, description) VALUES ((SELECT id FROM services WHERE name = '" + name + "'), '"+ name + "', " + description + ");";
+			queryStrings[1] = "INSERT INTO other_services(id, name, description) VALUES ((SELECT id FROM services WHERE name = '" + name + "'), '"+ name + "', " + description + ");";
 		}
-		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
-		query.run();
-		
+		connection.executeInsertQuerys(queryStrings);
 	};
 }

@@ -57,10 +57,11 @@ public class SubscribeLockerWindow extends JFrame implements ActionListener{
 			new ErrorWindow("Legajo invalido");
 			return;
 		}
-		String queryString = "UPDATE lockers SET owner_id = ( SELECT id FROM users WHERE legacy = " + legacy + " ) WHERE id = " + id + ";";
+		String[] queryStrings = new String[1];
+		queryStrings[0] = "UPDATE lockers SET owner_id = ( SELECT id FROM users WHERE legacy = " + legacy + " ) WHERE id = " + id + ";";
 //		String queryString = "INSERT INTO lockers_subscriptions(legacy, id) VALUES(" + legacy + ", " + id + ");";
-		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
-		query.run();
-		
+//		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
+//		query.run();
+		connection.executeInsertQuerys(queryStrings);
 	};
 }

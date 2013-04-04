@@ -51,9 +51,9 @@ public class SearchLegacyWindow extends JFrame implements ActionListener{
 		}
 		
 		String queryString = "SELECT legacy, first_name, last_name, phone, cellphone, email FROM users WHERE legacy = " + legacy;
+		Object[][] results = connection.executeSelectQuery(queryString, columnNames);
 
-		SqlQuery query = new SqlSelectQuery(queryString, columnNames, connection);
-		TableData output = query.run();
+		TableData output = new TableData(columnNames, results);
 		CeitbaWindow newContentPane = new CeitbaWindow(new TableData());
 		if (output != null){
 			newContentPane = new CeitbaWindow(output);

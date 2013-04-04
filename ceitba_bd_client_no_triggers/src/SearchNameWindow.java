@@ -45,8 +45,9 @@ public class SearchNameWindow extends JFrame implements ActionListener{
 		
 		String queryString = "SELECT legacy, first_name, last_name, phone, cellphone, email FROM users WHERE first_name like '%" + name + "%' or last_name like '%" + name + "%'";
 
-		SqlQuery query = new SqlSelectQuery(queryString, columnNames, connection);
-		TableData output = query.run();
+		Object[][] results = connection.executeSelectQuery(queryString, columnNames);
+
+		TableData output = new TableData(columnNames, results);
 		CeitbaWindow newContentPane = new CeitbaWindow(new TableData());
 		if (output != null){
 			newContentPane = new CeitbaWindow(output);

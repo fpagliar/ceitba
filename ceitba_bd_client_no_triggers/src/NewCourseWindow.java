@@ -91,18 +91,13 @@ public class NewCourseWindow extends JFrame implements ActionListener{
 			description = "'" + description + "'";
 		}
 		
-		String queryString = "INSERT INTO services(name, price) VALUES ('"+ name + "', "+  price + ");";	
-		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
-		query.run();
-		String queryString2;
+		String[] queryStrings = new String[2];		
+		queryStrings[0] = "INSERT INTO services(name, price) VALUES ('"+ name + "', "+  price + ");";	
 		if (description == null){
-			queryString2 = "INSERT INTO courses(id, name, duration) VALUES ((SELECT id FROM services WHERE name = '" + name +"'), '"+ name + "', " + duration + ");";	
+			queryStrings[1] = "INSERT INTO courses(id, name, duration) VALUES ((SELECT id FROM services WHERE name = '" + name +"'), '"+ name + "', " + duration + ");";	
 		}else{
-			queryString2 = "INSERT INTO courses(id, name, description, price, duration) VALUES ((SELECT id FROM services WHERE name = '" + name +"'), '"+ name + "', " + description + ", "+  price + ", " + duration + ");";				
+			queryStrings[1] = "INSERT INTO courses(id, name, description, price, duration) VALUES ((SELECT id FROM services WHERE name = '" + name +"'), '"+ name + "', " + description + ", "+  price + ", " + duration + ");";				
 		}
-		
-		SqlQuery query2 = new SqlInsertQuery(queryString2, null, connection);
-		query2.run();
-		
+		connection.executeInsertQuerys(queryStrings);
 	};
 }

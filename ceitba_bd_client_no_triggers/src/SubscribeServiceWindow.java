@@ -56,10 +56,8 @@ public class SubscribeServiceWindow extends JFrame implements ActionListener{
 			new ErrorWindow("Nombre invalido");
 			return;			
 		}
-		
-		String queryString = "INSERT INTO subscriptions(user_id, service_id) values ( (SELECT id FROM users WHERE legacy = " + legacy + "), ( SELECT id FROM services WHERE name = '" + name + "'));";
-		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
-		query.run();
-		
+		String[] queryStrings = new String[1];
+		queryStrings[0] = "INSERT INTO subscriptions(user_id, service_id) values ( (SELECT id FROM users WHERE legacy = " + legacy + "), ( SELECT id FROM services WHERE name = '" + name + "'));";
+		connection.executeInsertQuerys(queryStrings);
 	};
 }

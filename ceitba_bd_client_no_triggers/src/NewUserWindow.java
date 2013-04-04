@@ -89,6 +89,7 @@ public class NewUserWindow extends JFrame implements ActionListener{
 			new ErrorWindow("Nombre invalido");
 			return;			
 		}
+		
 		if (name.length() == 0){
 			name = "NULL";
 		}else{
@@ -99,6 +100,7 @@ public class NewUserWindow extends JFrame implements ActionListener{
 			new ErrorWindow("Apellido invalido");
 			return;			
 		}
+		
 		if (name.length() == 0){
 			lastName = "NULL";
 		}else{
@@ -119,6 +121,7 @@ public class NewUserWindow extends JFrame implements ActionListener{
 			new ErrorWindow("Telefono invalido");
 			return;			
 		}
+		
 		if (phone.length() == 0){
 			phone = "NULL";
 		}else{
@@ -129,14 +132,14 @@ public class NewUserWindow extends JFrame implements ActionListener{
 			new ErrorWindow("Celular invalido");
 			return;			
 		}
+		
 		if (cellPhone.length() == 0){
 			cellPhone = "NULL";
 		}else{
 			cellPhone = "'" + cellPhone + "'";
 		}
-		String queryString = "INSERT INTO users(legacy, first_name, last_name, email, phone, cellphone) VALUES ("+ legacy + ", " + name + ", "+ lastName + ", " + email + ", " + phone + ", " + cellPhone + ")";
-		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
-		query.run();
-		
+		String[] queryStrings = new String[1];
+		queryStrings[0] = "INSERT INTO users(legacy, first_name, last_name, email, phone, cellphone) VALUES ("+ legacy + ", " + name + ", "+ lastName + ", " + email + ", " + phone + ", " + cellPhone + ")";
+		connection.executeInsertQuerys(queryStrings);
 	};
 }

@@ -24,8 +24,12 @@ public class SeeMenu extends JMenu{
 					{ 						
 						String[] columnNames = {"legacy", "first_name", "last_name", "phone", "cellphone", "email"};
 						String queryString = "SELECT legacy, first_name, last_name, phone, cellphone, email from users order by legacy";
-						SqlQuery query = new SqlSelectQuery(queryString, columnNames, con);
-						TableData output = query.run();
+//						SqlQuery query = new SqlSelectQuery(queryString, columnNames, con);
+//						TableData output = query.run();
+						Object[][] results = con.executeSelectQuery(queryString, columnNames);
+
+						TableData output = new TableData(columnNames, results);
+
 						CeitbaWindow newContentPane = new CeitbaWindow(new TableData());
 						if (output != null){
 							newContentPane = new CeitbaWindow(output);
@@ -47,8 +51,9 @@ public class SeeMenu extends JMenu{
 					{ 
 						String[] columnNames = {"id", "name", "description", "duration", "price"};
 						String queryString = "SELECT id, name, description, duration, price FROM courses_view";
-						SqlQuery query = new SqlSelectQuery(queryString, columnNames, con);
-						TableData output = query.run();
+						Object[][] results = con.executeSelectQuery(queryString, columnNames);
+
+						TableData output = new TableData(columnNames, results);
 						CeitbaWindow newContentPane = new CeitbaWindow(new TableData());
 						if (output != null){
 							newContentPane = new CeitbaWindow(output);
@@ -70,8 +75,9 @@ public class SeeMenu extends JMenu{
 					{ 
 						String[] columnNames = {"id", "name", "description", "duration", "price"};
 						String queryString = "SELECT id, name, description, duration, price FROM sports_view";
-						SqlQuery query = new SqlSelectQuery(queryString, columnNames, con);
-						TableData output = query.run();
+						Object[][] results = con.executeSelectQuery(queryString, columnNames);
+
+						TableData output = new TableData(columnNames, results);
 						CeitbaWindow newContentPane = new CeitbaWindow(new TableData());
 						if (output != null){
 							newContentPane = new CeitbaWindow(output);
@@ -92,8 +98,9 @@ public class SeeMenu extends JMenu{
 					{ 
 						String[] columnNames = {"id", "name", "description", "duration", "price"};
 						String queryString = "SELECT id, name, description, duration, price FROM other_services_view";
-						SqlQuery query = new SqlSelectQuery(queryString, columnNames, con);
-						TableData output = query.run();
+						Object[][] results = con.executeSelectQuery(queryString, columnNames);
+
+						TableData output = new TableData(columnNames, results);
 						CeitbaWindow newContentPane = new CeitbaWindow(new TableData());
 						if (output != null){
 							newContentPane = new CeitbaWindow(output);
@@ -114,8 +121,9 @@ public class SeeMenu extends JMenu{
 					{ 
 						String[] columnNames = {"id", "condition"};
 						String queryString = "SELECT id, condition FROM lockers WHERE owner_id is NULL ORDER BY id";
-						SqlQuery query = new SqlSelectQuery(queryString, columnNames, con);
-						TableData output = query.run();
+						Object[][] results = con.executeSelectQuery(queryString, columnNames);
+
+						TableData output = new TableData(columnNames, results);
 						CeitbaWindow newContentPane = new CeitbaWindow(new TableData());
 						if (output != null){
 							newContentPane = new CeitbaWindow(output);
@@ -136,8 +144,9 @@ public class SeeMenu extends JMenu{
 					{ 
 						String[] columnNames = {"id", "legacy", "first_name", "last_name", "condition"};
 						String queryString = "SELECT id, legacy, first_name, last_name, condition FROM lockers_subscriptions ORDER BY id";
-						SqlQuery query = new SqlSelectQuery(queryString, columnNames, con);
-						TableData output = query.run();
+						Object[][] results = con.executeSelectQuery(queryString, columnNames);
+
+						TableData output = new TableData(columnNames, results);
 						CeitbaWindow newContentPane = new CeitbaWindow(new TableData());
 						if (output != null){
 							newContentPane = new CeitbaWindow(output);
@@ -158,8 +167,9 @@ public class SeeMenu extends JMenu{
 					{ 
 						String[] columnNames = {"legacy", "ammount", "date"};
 						String queryString = "SELECT legacy, ammount, date FROM payments_view";
-						SqlQuery query = new SqlSelectQuery(queryString, columnNames, con);
-						TableData output = query.run();
+						Object[][] results = con.executeSelectQuery(queryString, columnNames);
+
+						TableData output = new TableData(columnNames, results);
 						CeitbaWindow newContentPane = new CeitbaWindow(new TableData());
 						if (output != null){
 							newContentPane = new CeitbaWindow(output);

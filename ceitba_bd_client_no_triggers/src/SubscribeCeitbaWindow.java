@@ -44,10 +44,11 @@ public class SubscribeCeitbaWindow extends JFrame implements ActionListener{
 			return;
 		}
 //		String queryString = "INSERT INTO subscriptions_view(legacy, name) values ("+ legacy + ", 'ceitba');";
-		
-		String queryString = "INSERT INTO subscriptions(service_id, user_id) VALUES((SELECT id FROM services WHERE services.name = 'ceitba'), (SELECT id FROM users WHERE users.legacy = " + legacy + "));";
-		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
-		query.run();
+		String[] queryStrings = new String[1];
+		queryStrings[0] = "INSERT INTO subscriptions(service_id, user_id) VALUES((SELECT id FROM services WHERE services.name = 'ceitba'), (SELECT id FROM users WHERE users.legacy = " + legacy + "));";
+//		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
+//		query.run();
+		connection.executeInsertQuerys(queryStrings);
 		
 	};
 }

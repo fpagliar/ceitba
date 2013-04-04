@@ -63,10 +63,11 @@ public class NewLockerWindow extends JFrame implements ActionListener{
 		}else{
 			condition = "'" + condition + "'";
 		}
-
-		String queryString = "INSERT INTO lockers(id, condition) VALUES (" + id + ", " + condition + ");";
-		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
-		query.run();
+		String[] queryString = new String[1];
+		queryString[0] = "INSERT INTO lockers(id, condition) VALUES (" + id + ", " + condition + ");";
+		connection.executeInsertQuerys(queryString);
+//		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
+//		query.run();
 		
 	};
 }

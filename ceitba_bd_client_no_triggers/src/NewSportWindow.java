@@ -92,14 +92,11 @@ public class NewSportWindow extends JFrame implements ActionListener{
 			description = "'" + description + "'";
 		}
 
+		String[] queryStrings = new String[2];
 //		String queryString = "INSERT INTO sports_view(name, description, price, duration) VALUES ('"+ name + "', '" + description + "', "+  price + ", " + duration + ");";
-		String queryString = "INSERT INTO services(name, price) VALUES(" + name + ", " + price + ");";
-		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
-		query.run();
-		queryString = "INSERT INTO sports(id, name, description) VALUES((SELECT id FROM services WHERE name = " + name + "), " + name + ", " + description + ");";
+		queryStrings[0] = "INSERT INTO services(name, price) VALUES(" + name + ", " + price + ");";
+		queryStrings[1] = "INSERT INTO sports(id, name, description) VALUES((SELECT id FROM services WHERE name = " + name + "), " + name + ", " + description + ");";
 //		queryString = "INSERT INTO sports_view(name, description, price) VALUES ('"+ name + "', " + description + ", "+  price + ");";
-		query = new SqlInsertQuery(queryString, null, connection);
-		query.run();
-		
+		connection.executeInsertQuerys(queryStrings);
 	};
 }

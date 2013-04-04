@@ -56,10 +56,8 @@ public class UnsubscribeServiceWindow extends JFrame implements ActionListener{
 			new ErrorWindow("Nombre invalido");
 			return;			
 		}
-		
-		String queryString = "DELETE FROM subscriptions WHERE user_id = ( SELECT id FROM users WHERE legacy = " + legacy + ") AND service_id = ( SELECT id FROM services WHERE name = '" + name + "');";
-		SqlQuery query = new SqlInsertQuery(queryString, null, connection);
-		query.run();
-		
+		String[] queryStrings = new String[1];
+		queryStrings[0] = "DELETE FROM subscriptions WHERE user_id = ( SELECT id FROM users WHERE legacy = " + legacy + ") AND service_id = ( SELECT id FROM services WHERE name = '" + name + "');";
+		connection.executeInsertQuerys(queryStrings);
 	};
 }
