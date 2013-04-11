@@ -44,8 +44,9 @@ public class UnsubscribeLockerWindow extends JFrame implements ActionListener{
 			return;
 		}
 
-		String[] queryStrings = new String[1];
+		String[] queryStrings = new String[2];
 		queryStrings[0] = "DELETE FROM subscriptions WHERE user_id = ( SELECT id FROM users WHERE legacy = " + legacy + ") AND service_id = (SELECT id FROM services WHERE name = 'locker');";
+		queryStrings[1] = "UPDATE lockers SET owner_id = NULL WHERE owner_id = ( SELECT id FROM users WHERE legacy = " + legacy + ");";
 		connection.executeInsertQuerys(queryStrings);
 	};
 }

@@ -16,9 +16,9 @@ public class CeitbaConnection {
 	private Connection con = null;
 	private String username = "";
 	private String password = "";
-	private File file = null;
-	private FileWriter fw = null;
-	private BufferedWriter bw = null;
+//	private File file = null;
+//	private FileWriter fw = null;
+//	private BufferedWriter bw = null;
 	
 	public CeitbaConnection(String username, String password){
 		this.username = username;
@@ -53,20 +53,11 @@ public class CeitbaConnection {
 		}	
 	}
 
-//	private void insertQueryException(String queryString){
-//		try {
-//			con.rollback();
-//		} catch (SQLException e1) {
-//			logError("Fatal: could not rollback: query-> " + queryString);
-//		}
-//		logError("Error inserting new data: " + queryString);
-//	}
-	
 	private void insertQueryException(String[] queryStrings){
 		try {
 			con.rollback();
 		} catch (SQLException e1) {
-			logError("Fatal: could not rollback: querys-> ", queryStrings);
+			logError("Fatal: could not rollback: querys -> ", queryStrings);
 		}
 		logError("Query exception, could not run querys:", queryStrings);
 	}
@@ -81,14 +72,32 @@ public class CeitbaConnection {
 	
 	private void logErrorLine(String s){
 		try{
-			file = new File("database_error_log.txt");
+			File file = new File("database_error_log.txt");
 			if ( !file.exists() ) {
 				file.createNewFile();
 			}
-			fw = new FileWriter(file.getAbsoluteFile());
-			bw = new BufferedWriter(fw);
-			bw.write(s);
+			FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(s + "\n");
 			bw.close();
+			fw.close();
+		}catch (Exception e2){
+			
+		}
+		return;
+	}
+	
+	private void logExcecutionLine(String s){
+		try{
+			File file = new File("database_log.txt");
+			if ( !file.exists() ) {
+				file.createNewFile();
+			}
+			FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(" -> " + s + "\n");
+			bw.close();
+			fw.close();
 		}catch (Exception e2){
 			
 		}
@@ -96,20 +105,13 @@ public class CeitbaConnection {
 	}
 	
 	private void logError(String s, String[] strings){
-		logErrorLine("************* NEW ERROR *************");
+		logErrorLine("************* NEW ERROR *************\n");
 		logErrorLine(s);
 		for(String str: strings)
 			logErrorLine(str);
-		logErrorLine("*************************************");
+		logErrorLine("*************************************\n");
 		return;
 	}
-
-//	private void logError(String s){
-//		logErrorLine("************* NEW ERROR *************");
-//		logErrorLine(s);
-//		logErrorLine("*************************************");
-//		return;
-//	}
 
 	public  Object[][] executeSelectQuery(String queryString, String[] columnNames){
 		try{
@@ -130,6 +132,7 @@ public class CeitbaConnection {
 				}
 				ans.add(tuple);
 			}
+			logExcecutionLine(queryString.toLowerCase());
 			return (Object[][]) ans.toArray( new Object[ans.size()][] );
 
 		} catch(Exception e){
@@ -143,6 +146,7 @@ public class CeitbaConnection {
 	private void executeInsertQuery(String queryString) throws SQLException{
 		Statement stmt = con.createStatement(); // TODO: USE PREPARED STATEMENT
 		stmt.executeUpdate(queryString.toLowerCase());
+		logExcecutionLine(queryString.toLowerCase());
 	}
 	
 	public void executeInsertQuerys(String[] queryStrings){

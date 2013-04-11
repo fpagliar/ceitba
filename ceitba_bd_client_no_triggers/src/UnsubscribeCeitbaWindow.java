@@ -44,7 +44,7 @@ public class UnsubscribeCeitbaWindow extends JFrame implements ActionListener{
 			return;
 		}
 		String[] queryStrings = new String[1];
-		queryStrings[0] = "DELETE FROM subscriptions WHERE user_id = ( SELECT user_id FROM users WHERE legacy = " + legacy + ") AND service_id = ( SELECT id FROM services WHERE name = 'ceitba');";
+		queryStrings[0] = "DELETE FROM subscriptions WHERE user_id = ( SELECT id FROM users WHERE legacy = " + legacy + ");";
 		connection.executeInsertQuerys(queryStrings);
 	};
 }
