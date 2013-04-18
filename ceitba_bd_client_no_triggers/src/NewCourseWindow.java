@@ -80,6 +80,10 @@ public class NewCourseWindow extends JFrame implements ActionListener{
 			new ErrorWindow("Nombre invalido: solo puede contener letras, numeros y espacios");
 			return;			
 		}
+		if ( name.length() > 50 ){
+			new ErrorWindow("Nombre invalido: maximo 50 caracteres!");
+			return;						
+		}
 						
 		if ( ! description.matches("[a-zA-z0-9\\s]*") ){
 			new ErrorWindow("Descripcion invalida: solo puede contener letras, numeros y espacios");

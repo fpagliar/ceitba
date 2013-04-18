@@ -48,7 +48,7 @@ public class CeitbaConnection {
 			con.close();
 		} catch (SQLException e) {
 			logError(e, "Fatal: could not close connection!");
-			new ErrorWindow("Fatal: could not close connection!");
+			new ErrorWindow("Fatal: could not close the database connection!");
 			System.exit(1);
 		}	
 	}
@@ -137,6 +137,7 @@ public class CeitbaConnection {
 
 		} catch(Exception e){
 			logError(e, "Error retrieving the data: " + queryString);
+			new ErrorWindow("An error unexpected error occurred");
 		} finally{
 			tearDown();
 		}
@@ -156,12 +157,13 @@ public class CeitbaConnection {
 				executeInsertQuery(s);
 			}
 			con.commit();
+	        new MessageWindow("Data inserted correctly");
 		}catch (SQLException e) {
 			insertQueryException(queryStrings);
+			new ErrorWindow("An error unexpected error occurred");
 		} finally{
 			tearDown();
 		}
-        new MessageWindow("Data inserted correctly");
         return;
 	}
 }
