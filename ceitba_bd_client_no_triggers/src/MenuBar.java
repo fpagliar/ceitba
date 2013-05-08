@@ -26,7 +26,21 @@ public class MenuBar extends JMenuBar{
 				new ActionListener(){
 					public void actionPerformed(ActionEvent e)
 					{ 
-						
+						String[] columnNames = {"legacy", "first_name", "last_name", "name", "price"};
+						String queryString = "SELECT users.legacy, users.first_name, users.last_name, services.name, services.price FROM subscriptions AS s JOIN services ON s.service_id = services.id JOIN users ON s.user_id = users.id ORDER BY users.legacy";
+//						SqlQuery query = new SqlSelectQuery(queryString, columnNames, con);
+//						TableData output = query.run();
+						Object[][] results = con.executeSelectQuery(queryString, columnNames);
+						TableData output = new TableData(columnNames, results);
+
+						CeitbaWindow newContentPane = new CeitbaWindow(new TableData());
+						if (output != null){
+							newContentPane = new CeitbaWindow(output);
+						}
+						newContentPane.setOpaque(true); //content panes must be opaque
+						window.setContentPane(newContentPane);
+						window.pack();
+						window.setVisible(true);
 					}
 				}
 				);
