@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class CeitbaConnection {
@@ -78,7 +79,7 @@ public class CeitbaConnection {
 			}
 			FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
 			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(s + "\n");
+			bw.write(new Date() + "->" + s + "\n");
 			bw.close();
 			fw.close();
 		}catch (Exception e2){
@@ -95,7 +96,7 @@ public class CeitbaConnection {
 			}
 			FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
 			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(" -> " + s + "\n");
+			bw.write(new Date() + " -> " + s + "\n");
 			bw.close();
 			fw.close();
 		}catch (Exception e2){
